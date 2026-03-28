@@ -14,6 +14,7 @@ import { Input } from '../../../components';
 import { Movie } from 'models/movie';
 import { IMAGE_BASE_URL } from '../../../api/instance';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
 interface HomeProps {
   popularMovies: Movie[];
@@ -21,6 +22,8 @@ interface HomeProps {
 
 export default function Home({ popularMovies }: HomeProps) {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
+
   const [currentStep, setCurrentStep] = useState<
     'now-playing' | 'upcome' | 'top-rated'
   >('now-playing');
@@ -88,10 +91,12 @@ export default function Home({ popularMovies }: HomeProps) {
         numColumns={3}
         initialNumToRender={6}
         renderItem={({ item }) => (
-          <Image
-            source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
-            style={styles.banner_movie_list__image}
-          />
+          <Pressable onPress={() => navigation.navigate('Detail', item)}>
+            <Image
+              source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
+              style={styles.banner_movie_list__image}
+            />
+          </Pressable>
         )}
       />
     </ScrollView>
