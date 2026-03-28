@@ -6,7 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={'dark-content'} />
+      <StatusBar barStyle={'light-content'} />
       <NavigationContainer>
         <RootTabs />
       </NavigationContainer>

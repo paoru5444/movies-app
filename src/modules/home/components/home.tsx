@@ -13,12 +13,14 @@ import { icons } from '../../../constants/icons';
 import { Input } from '../../../components';
 import { Movie } from 'models/movie';
 import { IMAGE_BASE_URL } from '../../../api/instance';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface HomeProps {
   popularMovies: Movie[];
 }
 
 export default function Home({ popularMovies }: HomeProps) {
+  const insets = useSafeAreaInsets();
   const [currentStep, setCurrentStep] = useState<
     'now-playing' | 'upcome' | 'top-rated'
   >('now-playing');
@@ -44,7 +46,10 @@ export default function Home({ popularMovies }: HomeProps) {
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      style={{ backgroundColor: colors.dark, paddingTop: insets.top }}
+    >
       <Text style={styles.page_title}>What do you want to watch?</Text>
 
       <Input placeholder="Search" icon={icons.searchRight} />
@@ -96,7 +101,6 @@ export default function Home({ popularMovies }: HomeProps) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.dark,
-    paddingTop: 100,
     gap: 24,
     paddingHorizontal: 24,
   },
