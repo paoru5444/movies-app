@@ -24,6 +24,11 @@ export default function SearchScreen() {
     setMovies(data?.results);
   };
 
+  const getMovieDetail = async (id: number) => {
+    const { data } = await api.get(`/movie/${id}`);
+    return data;
+  };
+
   const goToDetail = (item: Movie) => {
     navigation.navigate('Detail', { movie: item });
   };
@@ -48,6 +53,7 @@ export default function SearchScreen() {
       goToDetail={goToDetail}
       search={search}
       onChangeSearch={onChangeSearch}
+      getMovieDetail={getMovieDetail}
     />
   );
 }
