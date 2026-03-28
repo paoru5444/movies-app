@@ -10,16 +10,16 @@ import {
 import React, { useCallback } from 'react';
 import { colors } from '@/src/constants/colors';
 import { icons } from '@/src/constants/icons';
-import { Input } from '@/src/components';
-import { Movie, Tabs } from '@/src/models/movie';
+import { Input, Tabs } from '@/src/components';
+import { Movie, MovieListsTypes } from '@/src/models/movie';
 import { IMAGE_BASE_URL } from '@/src/api/instance';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface HomeProps {
   popularMovies: Movie[];
   tabMovies: Movie[];
-  onChangeTab: (tab: Tabs) => void;
-  currentStep: Tabs;
+  onChangeTab: (tab: MovieListsTypes) => void;
+  currentStep: MovieListsTypes;
   goToDetail: (item: Movie) => void;
 }
 
@@ -31,9 +31,11 @@ export default function Home({
   goToDetail,
 }: HomeProps) {
   const insets = useSafeAreaInsets();
-  const isNowPlaying = currentStep === 'now-playing';
-  const isTopRated = currentStep === 'top-rated';
-  const isUpcoming = currentStep === 'upcoming';
+  const tabItems = {
+    'now-playing': 'Now playing',
+    upcoming: 'Upcoming',
+    'top-rated': 'Top rated',
+  };
 
   const renderItem = useCallback(
     ({ item, index }: { item: Movie; index: number }) => (
@@ -58,7 +60,7 @@ export default function Home({
   return (
     <ScrollView
       contentContainerStyle={styles.container}
-      style={{ backgroundColor: colors.dark, paddingTop: insets.top }}
+      style={{ backgroundColor: colors.dark, paddingTop: insets.top + 8 }}
     >
       <Text style={styles.page_title}>What do you want to watch?</Text>
 
@@ -72,88 +74,30 @@ export default function Home({
         ItemSeparatorComponent={ItemSeparatorComponent}
       />
 
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-        }}
+      <View style={{ height: 8 }} />
+
+      <Tabs
+        currentTab={currentStep}
+        onChangeTab={onChangeTab}
+        tabItems={tabItems}
       >
-        <Pressable
-          onPress={() => onChangeTab('now-playing')}
-          hitSlop={16}
-          style={
-            isNowPlaying
-              ? styles.selected_tab_style__container
-              : styles.tab_style__container
-          }
-        >
-          <Text
-            style={
-              isNowPlaying
-                ? styles.selected_tab_style__text
-                : styles.tab_style__text
-            }
-          >
-            Now playing
-          </Text>
-        </Pressable>
+        <FlatList
+          data={tabMovies.slice(0, 6)}
+          scrollEnabled={false}
+          numColumns={3}
+          initialNumToRender={6}
+          renderItem={({ item }) => (
+            <Pressable onPress={() => goToDetail(item)}>
+              <Image
+                source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
+                style={styles.banner_movie_list__image}
+              />
+            </Pressable>
+          )}
+        />
+      </Tabs>
 
-        <Pressable
-          onPress={() => onChangeTab('upcoming')}
-          hitSlop={16}
-          style={
-            isUpcoming
-              ? styles.selected_tab_style__container
-              : styles.tab_style__container
-          }
-        >
-          <Text
-            style={
-              isUpcoming
-                ? styles.selected_tab_style__text
-                : styles.tab_style__text
-            }
-          >
-            Upcoming
-          </Text>
-        </Pressable>
-
-        <Pressable
-          onPress={() => onChangeTab('top-rated')}
-          hitSlop={16}
-          style={
-            isTopRated
-              ? styles.selected_tab_style__container
-              : styles.tab_style__container
-          }
-        >
-          <Text
-            style={
-              isTopRated
-                ? styles.selected_tab_style__text
-                : styles.tab_style__text
-            }
-          >
-            Top rated
-          </Text>
-        </Pressable>
-      </View>
-
-      <FlatList
-        data={tabMovies.slice(0, 6)}
-        scrollEnabled={false}
-        numColumns={3}
-        initialNumToRender={6}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => goToDetail(item)}>
-            <Image
-              source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
-              style={styles.banner_movie_list__image}
-            />
-          </Pressable>
-        )}
-      />
+      <View style={{ height: 8 }} />
     </ScrollView>
   );
 }
@@ -199,20 +143,5 @@ const styles = StyleSheet.create({
     height: 145,
     borderRadius: 16,
     margin: 8,
-  },
-  tab_style__text: {
-    color: colors.white,
-  },
-  tab_style__container: {
-    height: 30,
-  },
-  selected_tab_style__text: {
-    color: colors.white,
-    fontWeight: 600,
-  },
-  selected_tab_style__container: {
-    borderBottomWidth: 4,
-    height: 30,
-    borderColor: colors.darkGray,
   },
 });

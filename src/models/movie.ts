@@ -15,4 +15,4 @@ export type Movie = {
   vote_count: number;
 };
 
-export type Tabs = 'now-playing' | 'upcoming' | 'top-rated';
+export type MovieListsTypes = 'now-playing' | 'upcoming' | 'top-rated';

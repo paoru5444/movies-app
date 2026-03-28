@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Home from '../components/home';
 import { api } from '@/src/api/instance';
-import { Movie, Tabs } from '@/src/models/movie';
+import { Movie, MovieListsTypes } from '@/src/models/movie';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -19,7 +19,7 @@ export default function HomeScreen() {
   const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([]);
   const [nowPlayingMovies, setNowPlayingMovies] = useState<Movie[]>([]);
 
-  const [currentStep, setCurrentStep] = useState<Tabs>('now-playing');
+  const [currentTab, setCurrentTab] = useState<MovieListsTypes>('now-playing');
 
   const getPopularMovies = async () => {
     const { data } = await api.get('/movie/popular');
@@ -43,8 +43,8 @@ export default function HomeScreen() {
     getNowPlayingMovies();
   }, []);
 
-  const onChangeTab = (tab: Tabs) => {
-    setCurrentStep(tab);
+  const onChangeTab = (tab: MovieListsTypes) => {
+    setCurrentTab(tab);
 
     if (tab === 'now-playing') {
       getNowPlayingMovies();
@@ -75,10 +75,10 @@ export default function HomeScreen() {
   return (
     <Home
       popularMovies={popularMovies}
-      tabMovies={data[currentStep]}
+      tabMovies={data[currentTab]}
       onChangeTab={onChangeTab}
       goToDetail={goToDetail}
-      currentStep={currentStep}
+      currentStep={currentTab}
     />
   );
 }
