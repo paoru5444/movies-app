@@ -6,9 +6,9 @@ import {
   ViewStyle,
 } from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
+import { colors } from '@/src/constants/colors';
 import { FilterImage } from 'react-native-svg/filter-image';
-import ArrowLeft from '../../../assets/icons/arrow-left.svg';
+import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import { useNavigation } from '@react-navigation/native';
 
 interface HeaderProps {

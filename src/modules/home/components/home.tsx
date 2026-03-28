@@ -8,11 +8,11 @@ import {
   Pressable,
 } from 'react-native';
 import React, { useCallback, useState } from 'react';
-import { colors } from '../../../constants/colors';
-import { icons } from '../../../constants/icons';
-import { Input } from '../../../components';
-import { Movie } from 'models/movie';
-import { IMAGE_BASE_URL } from '../../../api/instance';
+import { colors } from '@/src/constants/colors';
+import { icons } from '@/src/constants/icons';
+import { Input } from '@/src/components';
+import { Movie } from '@/src/models/movie';
+import { IMAGE_BASE_URL } from '@/src/api/instance';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 

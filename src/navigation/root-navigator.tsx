@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import HomeScreen from '../modules/home/screens/home';
-import SearchScreen from '../modules/search/screens/search';
-import WatchListScreen from '../modules/watch-list/screens/watch-list';
-import DetailScreen from '../modules/detail/screens/detail';
-import HomeIcon from '../../assets/icons/home.svg';
-import SearchLeft from '../../assets/icons/search-left.svg';
-import Bookmark from '../../assets/icons/bookmark.svg';
-import { colors } from '../constants/colors';
+import HomeScreen from '@/src/modules/home/screens/home';
+import SearchScreen from '@/src/modules/search/screens/search';
+import WatchListScreen from '@/src/modules/watch-list/screens/watch-list';
+import DetailScreen from '@/src/modules/detail/screens/detail';
+import HomeIcon from '@/assets/icons/home.svg';
+import SearchLeft from '@/assets/icons/search-left.svg';
+import Bookmark from '@/assets/icons/bookmark.svg';
+import { colors } from '@/src/constants/colors';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator();

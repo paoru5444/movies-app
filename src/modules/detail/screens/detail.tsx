@@ -1,15 +1,15 @@
 import { View, Text, Image, ImageBackground } from 'react-native';
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
-import { Header } from '../../../components';
-import { colors } from '../../../constants/colors';
+import { Header } from '@/src/components';
+import { colors } from '@/src/constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Movie } from '../../../models/movie';
-import { IMAGE_BASE_URL } from '../../../api/instance';
-import Star from '../../../../assets/icons/star.svg';
-import CalendarBlank from '../../../../assets/icons/calendar-blank.svg';
-import Clock from '../../../../assets/icons/clock.svg';
-import Ticket from '../../../../assets/icons/ticket.svg';
+import { Movie } from '@/src/models/movie';
+import { IMAGE_BASE_URL } from '@/src/api/instance';
+import Star from '@/assets/icons/star.svg';
+import CalendarBlank from '@/assets/icons/calendar-blank.svg';
+import Clock from '@/assets/icons/clock.svg';
+import Ticket from '@/assets/icons/ticket.svg';
 
 export default function DetailScreen() {
   const route = useRoute();

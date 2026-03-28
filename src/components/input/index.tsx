@@ -6,8 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
-import { Image } from 'react-native-svg';
-import { colors } from '../../constants/colors';
+import { colors } from '@/src/constants/colors';
 
 interface InputProps extends TextInputProps {
   icon: any;

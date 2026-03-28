@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Home from '../components/home';
-import { api } from '../../../api/instance';
+import { api } from '@/src/api/instance';
 
 export default function HomeScreen() {
   const [popularMovies, setPopularMovies] = useState([]);
