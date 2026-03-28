@@ -91,7 +91,9 @@ export default function Home({ popularMovies }: HomeProps) {
         numColumns={3}
         initialNumToRender={6}
         renderItem={({ item }) => (
-          <Pressable onPress={() => navigation.navigate('Detail', item)}>
+          <Pressable
+            onPress={() => navigation.navigate('Detail', { movie: item })}
+          >
             <Image
               source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
               style={styles.banner_movie_list__image}

@@ -5,4 +5,5 @@ export const colors = {
   gray: '#67686D',
   primary: '#0296E5',
   orange: '#FF8700',
+  mediumGray: '#92929D',
 };
