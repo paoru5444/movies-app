@@ -18,6 +18,8 @@ import { icons } from '@/src/constants/icons';
 interface SearchProps {
   movies: Movie[];
   goToDetail: (item: Movie) => void;
+  search: string;
+  onChangeSearch: (search: string) => void;
 }
 
 export default function Search({
@@ -28,37 +30,31 @@ export default function Search({
 }: SearchProps) {
   const insets = useSafeAreaInsets();
 
-  const renderItem = useCallback(
-    ({ item, index }: { item: Movie; index: number }) => {
-      return (
-        <Pressable
-          style={styles.banner_popular}
-          onPress={() => goToDetail(item)}
-        >
-          <Image
-            source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
-            style={styles.banner_popular__image}
-          />
+  const renderItem = useCallback(({ item }: { item: Movie }) => {
+    return (
+      <Pressable style={styles.banner_popular} onPress={() => goToDetail(item)}>
+        <Image
+          source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
+          style={styles.banner_popular__image}
+        />
 
-          <View style={{ justifyContent: 'space-around' }}>
-            <Text style={{ fontSize: 16, color: colors.white }}>
-              {item.original_title}
+        <View style={{ justifyContent: 'space-around' }}>
+          <Text style={{ fontSize: 16, color: colors.white }}>
+            {item.original_title}
+          </Text>
+
+          <View style={{ gap: 4 }}>
+            <Text style={{ fontSize: 12, color: colors.white }}>9,5</Text>
+            <Text style={{ fontSize: 12, color: colors.white }}>Action</Text>
+            <Text style={{ fontSize: 12, color: colors.white }}>2019</Text>
+            <Text style={{ fontSize: 12, color: colors.white }}>
+              139 minutes
             </Text>
-
-            <View style={{ gap: 4 }}>
-              <Text style={{ fontSize: 12, color: colors.white }}>9,5</Text>
-              <Text style={{ fontSize: 12, color: colors.white }}>Action</Text>
-              <Text style={{ fontSize: 12, color: colors.white }}>2019</Text>
-              <Text style={{ fontSize: 12, color: colors.white }}>
-                139 minutes
-              </Text>
-            </View>
           </View>
-        </Pressable>
-      );
-    },
-    [],
-  );
+        </View>
+      </Pressable>
+    );
+  }, []);
 
   const keyExtractor = (item: Movie) => `${item.id}`;
 

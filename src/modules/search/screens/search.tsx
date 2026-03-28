@@ -28,10 +28,19 @@ export default function SearchScreen() {
     navigation.navigate('Detail', { movie: item });
   };
 
-  const onChangeSearch = text => {
+  const onChangeSearch = (text: string) => {
     setSearch(text);
-    getMovies(text);
   };
+
+  useEffect(() => {
+    const ref = setTimeout(() => {
+      getMovies(search);
+    }, 1000);
+
+    return () => {
+      clearInterval(ref);
+    };
+  }, [search]);
 
   return (
     <Search
