@@ -63,6 +63,10 @@ export default function HomeScreen() {
     navigation.navigate('Detail', { movie: item });
   };
 
+  const goToSearch = () => {
+    navigation.navigate('Search');
+  };
+
   const data = useMemo(
     () => ({
       'now-playing': nowPlayingMovies,
@@ -78,6 +82,7 @@ export default function HomeScreen() {
       tabMovies={data[currentTab]}
       onChangeTab={onChangeTab}
       goToDetail={goToDetail}
+      goToSearch={goToSearch}
       currentStep={currentTab}
     />
   );

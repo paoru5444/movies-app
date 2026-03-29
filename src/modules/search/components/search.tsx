@@ -1,4 +1,10 @@
-import { View, FlatList, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+} from 'react-native';
 import React, { useCallback } from 'react';
 import { Movie } from '@/src/models/movie';
 import { colors } from '@/src/constants/colors';
@@ -13,6 +19,7 @@ interface SearchProps {
   search: string;
   onChangeSearch: (search: string) => void;
   getMovieDetail: (id: number) => void;
+  inputRef: TextInput;
 }
 
 export default function Search({
@@ -21,6 +28,7 @@ export default function Search({
   search,
   onChangeSearch,
   getMovieDetail,
+  inputRef,
 }: SearchProps) {
   const insets = useSafeAreaInsets();
 
@@ -54,6 +62,7 @@ export default function Search({
         icon={icons.searchRight}
         value={search}
         onChangeText={onChangeSearch}
+        ref={inputRef}
       />
 
       <FlatList

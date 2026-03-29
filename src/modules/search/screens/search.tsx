@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Search from '../components/search';
 import { api } from '@/src/api/instance';
 import { Movie } from '@/src/models/movie';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { TextInput } from 'react-native';
 
 type RootStackParamList = {
   Detail: { movie: Movie };
@@ -16,6 +17,8 @@ export default function SearchScreen() {
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [search, setSearch] = useState('');
+
+  const inputRef = useRef<TextInput>(null);
 
   const getMovies = async (movie?: string) => {
     const { data } = await api.get('/search/movie', {
@@ -38,6 +41,10 @@ export default function SearchScreen() {
   };
 
   useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
     const ref = setTimeout(() => {
       getMovies(search);
     }, 1000);
@@ -54,6 +61,7 @@ export default function SearchScreen() {
       search={search}
       onChangeSearch={onChangeSearch}
       getMovieDetail={getMovieDetail}
+      inputRef={inputRef}
     />
   );
 }

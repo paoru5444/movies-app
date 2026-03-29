@@ -28,6 +28,7 @@ export default function Tabs({
                 ? styles.selected_tab_style__container
                 : styles.tab_style__container
             }
+            key={value}
           >
             <Text
               style={

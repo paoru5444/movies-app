@@ -21,6 +21,7 @@ interface HomeProps {
   onChangeTab: (tab: MovieListsTypes) => void;
   currentStep: MovieListsTypes;
   goToDetail: (item: Movie) => void;
+  goToSearch: () => void;
 }
 
 export default function Home({
@@ -29,6 +30,7 @@ export default function Home({
   onChangeTab,
   currentStep,
   goToDetail,
+  goToSearch,
 }: HomeProps) {
   const insets = useSafeAreaInsets();
   const tabItems = {
@@ -39,13 +41,13 @@ export default function Home({
 
   const renderItem = useCallback(
     ({ item, index }: { item: Movie; index: number }) => (
-      <View style={styles.banner_popular}>
+      <Pressable style={styles.banner_popular} onPress={() => goToDetail(item)}>
         <Image
           source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
           style={styles.banner_popular__image}
         />
         <Text style={styles.banner_popular__outline_text}>{index + 1}</Text>
-      </View>
+      </Pressable>
     ),
     [],
   );
@@ -64,7 +66,12 @@ export default function Home({
     >
       <Text style={styles.page_title}>What do you want to watch?</Text>
 
-      <Input placeholder="Search" icon={icons.searchRight} />
+      <Input
+        placeholder="Search"
+        icon={icons.searchRight}
+        editable={false}
+        onPress={goToSearch}
+      />
 
       <FlatList
         data={popularMovies}
