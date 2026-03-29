@@ -7,31 +7,15 @@ import Star from '@/assets/icons/star.svg';
 import Ticket from '@/assets/icons/ticket.svg';
 import CalendarBlank from '@/assets/icons/calendar-blank.svg';
 import Clock from '@/assets/icons/clock.svg';
+import useDetail from '@/src/hooks/useDetail';
 
 interface SearchItemProps {
   item: Movie;
   goToDetail: (item: Movie) => void;
-  getMovieDetail: (id: number) => any;
 }
 
-export default function SearchItem({
-  item,
-  goToDetail,
-  getMovieDetail,
-}: SearchItemProps) {
-  const [detail, setDetail] = useState({
-    release_date: '',
-    genres: [],
-    runtime: '',
-  });
-
-  useEffect(() => {
-    getMovieDetail(item.id).then(setDetail);
-  }, []);
-
-  const year = detail.release_date?.split('-')[0];
-  const genre = detail.genres?.[0]?.name || '';
-  const runtime = detail?.runtime;
+export default function SearchItem({ item, goToDetail }: SearchItemProps) {
+  const { genre, runtime, year } = useDetail(item?.id);
 
   return (
     <Pressable style={styles.search_card} onPress={() => goToDetail(item)}>
@@ -44,7 +28,7 @@ export default function SearchItem({
         <Text style={styles.search_title}>{item.original_title}</Text>
 
         <View style={styles.search_card__detail_area}>
-          {item?.vote_average && (
+          {!!item?.vote_average && (
             <View style={styles.search_detail__container}>
               <Star />
               <Text style={styles.search_detail__vote_average}>
@@ -52,19 +36,19 @@ export default function SearchItem({
               </Text>
             </View>
           )}
-          {genre && (
+          {!!genre && (
             <View style={styles.search_detail__container}>
               <Ticket />
               <Text style={styles.search_detail__text}>{genre}</Text>
             </View>
           )}
-          {year && (
+          {!!year && (
             <View style={styles.search_detail__container}>
               <CalendarBlank />
               <Text style={styles.search_detail__text}>{year}</Text>
             </View>
           )}
-          {runtime && (
+          {!!runtime && (
             <View style={styles.search_detail__container}>
               <Clock />
               <Text style={styles.search_detail__text}>{runtime} minutes</Text>

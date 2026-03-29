@@ -18,7 +18,6 @@ interface SearchProps {
   goToDetail: (item: Movie) => void;
   search: string;
   onChangeSearch: (search: string) => void;
-  getMovieDetail: (id: number) => void;
   inputRef: TextInput;
 }
 
@@ -27,18 +26,13 @@ export default function Search({
   goToDetail,
   search,
   onChangeSearch,
-  getMovieDetail,
   inputRef,
 }: SearchProps) {
   const insets = useSafeAreaInsets();
 
   const renderItem = useCallback(
     ({ item }: { item: Movie }) => (
-      <SearchItem
-        item={item}
-        goToDetail={goToDetail}
-        getMovieDetail={getMovieDetail}
-      />
+      <SearchItem item={item} goToDetail={goToDetail} />
     ),
     [],
   );
