@@ -13,8 +13,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SearchItem from '../../search/components/search-item';
 import { Movie } from '@/src/models/movie';
 import { images } from '@/src/constants/images';
+import { emptyListHeight } from '@/src/constants/value';
 
-export default function WatchList({ goToDetail, movies }) {
+interface WatchListProps {
+  movies: Movie[];
+  goToDetail: (item: Movie) => void;
+}
+
+export default function WatchList({ goToDetail, movies }: WatchListProps) {
   const insets = useSafeAreaInsets();
 
   const renderItem = useCallback(
@@ -79,6 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 4,
+    height: emptyListHeight,
   },
   empty_list__title: { color: colors.white, fontWeight: 600, fontSize: 16 },
   empty_list__description: {

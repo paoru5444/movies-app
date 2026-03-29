@@ -15,6 +15,7 @@ import { Header, Input } from '@/src/components';
 import { icons } from '@/src/constants/icons';
 import SearchItem from './search-item';
 import { images } from '@/src/constants/images';
+import { emptyListHeight } from '@/src/constants/value';
 
 interface SearchProps {
   movies: Movie[];
@@ -95,7 +96,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark,
     gap: 24,
     paddingHorizontal: 24,
-    flex: 1,
   },
   list_item_separator: {
     height: 16,
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 4,
+    height: emptyListHeight,
   },
   empty_list__title: { color: colors.white, fontWeight: 600, fontSize: 16 },
   empty_list__description: {
