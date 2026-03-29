@@ -4,6 +4,7 @@ import {
   TextInputProps,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import { colors } from '@/src/constants/colors';
@@ -33,7 +34,7 @@ export default function Input({ icon: Icon, ...rest }: InputProps) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 42,
+    height: Platform.OS === 'ios' ? 42 : null,
     borderRadius: 16,
     paddingVertical: 8,
     paddingHorizontal: 16,
