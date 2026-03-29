@@ -48,7 +48,7 @@ export default function SearchItem({
             <View style={styles.search_detail__container}>
               <Star />
               <Text style={styles.search_detail__vote_average}>
-                {item.vote_average}
+                {item.vote_average.toFixed(1)}
               </Text>
             </View>
           )}
