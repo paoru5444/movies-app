@@ -1,5 +1,5 @@
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IMAGE_BASE_URL } from '@/src/api/instance';
 import { colors } from '@/src/constants/colors';
 import { Movie } from '@/src/models/movie';
@@ -8,6 +8,7 @@ import Ticket from '@/assets/icons/ticket.svg';
 import CalendarBlank from '@/assets/icons/calendar-blank.svg';
 import Clock from '@/assets/icons/clock.svg';
 import useDetail from '@/src/hooks/useDetail';
+import { images } from '@/src/constants/images';
 
 interface SearchItemProps {
   item: Movie;
@@ -19,10 +20,16 @@ export default function SearchItem({ item, goToDetail }: SearchItemProps) {
 
   return (
     <Pressable style={styles.search_card} onPress={() => goToDetail(item)}>
-      <Image
-        source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
-        style={styles.search_card__image}
-      />
+      {!!item?.poster_path ? (
+        <Image
+          source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
+          style={styles.search_card__image}
+        />
+      ) : (
+        <View style={styles.empty_poster_path_container}>
+          <Image source={images.popcorn} style={{ width: 50, height: 50 }} />
+        </View>
+      )}
 
       <View style={styles.search_card__text_area}>
         <Text style={styles.search_title}>{item.original_title}</Text>
@@ -91,5 +98,12 @@ const styles = StyleSheet.create({
   search_card__detail_area: {
     gap: 5,
     flex: 1,
+  },
+  empty_poster_path_container: {
+    backgroundColor: colors.gray,
+    borderRadius: 16,
+    width: 95,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

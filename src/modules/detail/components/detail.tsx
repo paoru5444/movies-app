@@ -9,6 +9,7 @@ import Clock from '@/assets/icons/clock.svg';
 import Ticket from '@/assets/icons/ticket.svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Movie } from '@/src/models/movie';
+import { images } from '@/src/constants/images';
 
 interface DetailProps {
   movie: Movie;
@@ -25,6 +26,10 @@ export default function Detail({
 }: DetailProps) {
   const insets = useSafeAreaInsets();
   const { genre, runtime, year } = detail;
+  const hasBackdropImage = !!movie.backdrop_path;
+  const image = hasBackdropImage
+    ? { uri: IMAGE_BASE_URL + movie.backdrop_path }
+    : images.popcorn;
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -38,8 +43,11 @@ export default function Detail({
 
       <View style={styles.header_card}>
         <ImageBackground
-          source={{ uri: IMAGE_BASE_URL + movie.backdrop_path }}
-          style={styles.backdrop_image}
+          source={image}
+          style={
+            hasBackdropImage ? styles.backdrop_image : styles.backdrop_image
+          }
+          resizeMode="contain"
         >
           {!!movie.vote_average && (
             <View style={styles.movie_showcase}>
@@ -52,10 +60,12 @@ export default function Detail({
         </ImageBackground>
 
         <View style={styles.poster_image__container}>
-          <Image
-            source={{ uri: IMAGE_BASE_URL + movie.poster_path }}
-            style={styles.poster_image}
-          />
+          {movie.poster_path && (
+            <Image
+              source={{ uri: IMAGE_BASE_URL + movie.poster_path }}
+              style={styles.poster_image}
+            />
+          )}
           <Text style={styles.movie_title}>{movie.title}</Text>
         </View>
       </View>
@@ -137,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 600,
     flexShrink: 1,
-    width: '60%',
+    width: '100%',
     top: '30%',
     color: colors.white,
   },
