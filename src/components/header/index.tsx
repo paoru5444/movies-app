@@ -19,7 +19,7 @@ interface HeaderProps {
   hasBookmark?: boolean;
   onPressBookmark?: () => void;
   containerStyle?: StyleProp<ViewStyle> | undefined;
-  isBookmarked: boolean;
+  isBookmarked?: boolean;
 }
 
 export default function Header({
