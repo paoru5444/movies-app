@@ -15,4 +15,17 @@ export type Movie = {
   vote_count: number;
 };
 
+export type MovieVideo = {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: 'YouTube';
+  size: number;
+  type: 'Trailer';
+  official: false;
+  published_at: string;
+  id: string;
+};
+
 export type MovieListsTypes = 'now-playing' | 'upcoming' | 'top-rated';

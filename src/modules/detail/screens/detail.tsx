@@ -6,6 +6,7 @@ import useDetail from '@/src/hooks/useDetail';
 
 import Detail from '../components/detail';
 import storage from '@/src/store/storage';
+import useVideo from '@/src/hooks/useVideo';
 
 export default function DetailScreen() {
   const route = useRoute();
@@ -13,6 +14,7 @@ export default function DetailScreen() {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const { genre, runtime, year } = useDetail(movie?.id);
+  const { hasVideo, openTrailer } = useVideo(movie?.id);
 
   const watchListMovies: Movie[] | [] = storage().get('movies') || [];
 
@@ -24,12 +26,10 @@ export default function DetailScreen() {
   }, []);
 
   const onPressBookmark = () => {
-    console.log('bookmarked', isBookmarked);
     if (isBookmarked) {
       const filteredMovies = watchListMovies.filter(
         item => item.id !== movie.id,
       );
-      console.log('filteredMovies: ', filteredMovies);
       storage().set('movies', filteredMovies);
       setIsBookmarked(false);
     } else {
@@ -44,6 +44,8 @@ export default function DetailScreen() {
       detail={{ genre, runtime, year }}
       onPressBookmark={onPressBookmark}
       isBookmarked={isBookmarked}
+      openTrailer={openTrailer}
+      hasVideo={hasVideo}
     />
   );
 }

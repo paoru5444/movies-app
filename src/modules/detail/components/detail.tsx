@@ -1,4 +1,11 @@
-import { View, Text, Image, ImageBackground, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import { IMAGE_BASE_URL } from '@/src/api/instance';
 import { Header } from '@/src/components';
@@ -7,6 +14,7 @@ import Star from '@/assets/icons/star.svg';
 import CalendarBlank from '@/assets/icons/calendar-blank.svg';
 import Clock from '@/assets/icons/clock.svg';
 import Ticket from '@/assets/icons/ticket.svg';
+import Play from '@/assets/icons/play.svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Movie } from '@/src/models/movie';
 import { images } from '@/src/constants/images';
@@ -16,6 +24,8 @@ interface DetailProps {
   detail: { genre?: string; runtime?: string; year?: string };
   onPressBookmark: () => void;
   isBookmarked: boolean;
+  openTrailer: () => void;
+  hasVideo: boolean;
 }
 
 export default function Detail({
@@ -23,6 +33,8 @@ export default function Detail({
   detail,
   onPressBookmark,
   isBookmarked,
+  openTrailer,
+  hasVideo,
 }: DetailProps) {
   const insets = useSafeAreaInsets();
   const { genre, runtime, year } = detail;
@@ -42,13 +54,7 @@ export default function Detail({
       />
 
       <View style={styles.header_card}>
-        <ImageBackground
-          source={image}
-          style={
-            hasBackdropImage ? styles.backdrop_image : styles.backdrop_image
-          }
-          resizeMode="contain"
-        >
+        <ImageBackground source={image} style={styles.backdrop_image}>
           {!!movie.vote_average && (
             <View style={styles.movie_showcase}>
               <Star />
@@ -56,6 +62,12 @@ export default function Detail({
                 {movie.vote_average.toFixed(1)}
               </Text>
             </View>
+          )}
+
+          {hasVideo && (
+            <TouchableOpacity style={styles.play} onPress={openTrailer}>
+              <Play />
+            </TouchableOpacity>
           )}
         </ImageBackground>
 
@@ -168,5 +180,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     fontSize: 12,
     fontWeight: 400,
+  },
+  play: {
+    position: 'absolute',
+    width: '100%',
+    height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
