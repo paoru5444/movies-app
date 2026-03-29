@@ -14,6 +14,7 @@ import { Input, Tabs } from '@/src/components';
 import { Movie, MovieListsTypes } from '@/src/models/movie';
 import { IMAGE_BASE_URL } from '@/src/api/instance';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StrokeText } from '@charmy.tech/react-native-stroke-text';
 
 interface HomeProps {
   popularMovies: Movie[];
@@ -46,7 +47,15 @@ export default function Home({
           source={{ uri: IMAGE_BASE_URL + item?.poster_path }}
           style={styles.banner_popular__image}
         />
-        <Text style={styles.banner_popular__outline_text}>{index + 1}</Text>
+        <View style={styles.banner_popular__outline_text}>
+          <StrokeText
+            text={`${index + 1}`}
+            fontSize={96}
+            color={colors.dark}
+            strokeColor={colors.primary}
+            strokeWidth={2}
+          />
+        </View>
       </Pressable>
     ),
     [],
@@ -64,14 +73,16 @@ export default function Home({
       contentContainerStyle={styles.container}
       style={{ backgroundColor: colors.dark, paddingTop: insets.top + 8 }}
     >
-      <Text style={styles.page_title}>What do you want to watch?</Text>
+      <View style={{ gap: 24, paddingHorizontal: 24 }}>
+        <Text style={styles.page_title}>What do you want to watch?</Text>
 
-      <Input
-        placeholder="Search"
-        icon={icons.searchRight}
-        editable={false}
-        onPress={goToSearch}
-      />
+        <Input
+          placeholder="Search"
+          icon={icons.searchRight}
+          editable={false}
+          onPress={goToSearch}
+        />
+      </View>
 
       <FlatList
         data={popularMovies}
@@ -79,6 +90,8 @@ export default function Home({
         keyExtractor={keyExtractor}
         horizontal
         ItemSeparatorComponent={ItemSeparatorComponent}
+        contentContainerStyle={{ paddingHorizontal: 24 }}
+        showsHorizontalScrollIndicator={false}
       />
 
       <View style={{ height: 8 }} />
@@ -101,6 +114,7 @@ export default function Home({
               />
             </Pressable>
           )}
+          contentContainerStyle={{ paddingHorizontal: 24 }}
         />
       </Tabs>
 
@@ -113,7 +127,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.dark,
     gap: 24,
-    paddingHorizontal: 24,
   },
   page_title: {
     fontSize: 18,
@@ -123,6 +136,7 @@ const styles = StyleSheet.create({
   banner_popular: {
     width: 145,
     height: 210,
+    margin: 8,
   },
   banner_popular__image: {
     width: 145,
@@ -131,16 +145,10 @@ const styles = StyleSheet.create({
   },
   banner_popular__outline_text: {
     position: 'absolute',
-    left: -15,
-    bottom: -30,
-    fontSize: 96,
-    color: colors.dark,
-    textShadowColor: 'blue',
-    textShadowRadius: 1,
-    textShadowOffset: {
-      width: 2,
-      height: 2,
-    },
+    left: 10,
+    bottom: 30,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
   },
   list_item_separator: {
     width: 16,
