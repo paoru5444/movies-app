@@ -49,17 +49,23 @@ A showcase project created to help you search, get details, and save a watch lis
    npm install
 ```
 
-2. Start metro bundler
+2. Install the ios dependencies
+```bash
+   cd ios
+   pod install
+```
+
+3. Start metro bundler
 ```bash
    npm run start
 ```
 
-3. Open the app in a android emulator
+4. Open the app in a android emulator
 ```bash
    npm run android
 ```
 
-3. Or, open the app with a ios simulator
+4. Or, open the app with a ios simulator
 ```bash
    npm run ios
 ```
@@ -72,10 +78,10 @@ A showcase project created to help you search, get details, and save a watch lis
 - React Native
 - Typescript
 - Axios
-- React Query
+- React Query - (To cache the requested movie data with a stale time of 5 minutes)
 - React Navigation
 - React Native Bootsplash
-- React Native MMKV
+- React Native MMKV - (To store watch list movies)
 - React Native SVG
 - React Native Stroke Text
 - React Native Safe Area Context
