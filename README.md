@@ -1,97 +1,135 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<div align="center">
+  <img src="./assets/logo.png" alt="Orçamento Simples" width="200"/>
+</div>
 
-# Getting Started
+# Movie App
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+A showcase project created to help you search, get details, and save a watch list of your favorite movies.
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+<div align="left">
+  <img src="./assets/screenshots/1.png" width="24%"/>
+  <img src="./assets/screenshots/2.png" width="24%"/>
+  <img src="./assets/screenshots/3.png" width="24%"/>
+  <img src="./assets/screenshots/4.png" width="24%"/>
+</div>
+<div align="left">
+  <img src="./assets/screenshots/5.png" width="24%"/>
+  <img src="./assets/screenshots/6.png" width="24%"/>
+  <img src="./assets/screenshots/7.png" width="24%"/>
+  <img src="./assets/screenshots/8.png" width="24%"/>
+</div>
+<div align="left">
+  <img src="./assets/screenshots/14.png" width="24%"/>
+  <img src="./assets/screenshots/10.png" width="24%"/>
+  <img src="./assets/screenshots/11.png" width="24%"/>
+  <img src="./assets/screenshots/12.png" width="24%"/>
+</div>
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
+### Questions:
+- What does the single responsibility principle consist of? What's its purpose?
 
-```sh
-# Using npm
-npm start
+> R: It's part of the SOLID principles, it indicates that every function, module, etc, must have just a well defined responsability. I applyed this principle in this project with the Dependency Injection, by create Statefull and Stateless components with separated responsabilities.
 
-# OR using Yarn
-yarn start
+- What characteristics, in your opinion, does “good” code or clean code have?
+
+> R: To write small and reusable components, create pure functions, use memoization for performance (useMemo, useCallback, etc), avoid prop drilling, use typescript, eslint and prettier, and define meaningfull variable names.
+
+- Detail how you would do everything that you have not completed.
+> R: I would implement a global state managment using Redux and create a cache system within this library. Expand my test coverage targeting 70% of coverage by write tests with testing library, follow more of the DRY (Dont Repeat Yourself) and reuse better the code I wrote for now. I would split the code in smaller and reusable components and implement a design sistem using Styled Components with Context for the theme for exemple, also treat better the exceptions in my request with try catch blocks and sending error trackings to a platform like Firebase or Sentry. Also fix small details that I did't have time to fix now, such as spacements, app icon and name, add more animations, loadings, skeletons and etc.
+---
+
+## Setup
+
+
+1. Install dependencies:
+```bash
+   npm install
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+2. Start metro bundler
+```bash
+   npm run start
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+3. Open the app in a android emulator
+```bash
+   npm run android
 ```
 
-Then, and every time you update your native dependencies, run:
+3. Or, open the app with a ios simulator
+```bash
+   npm run ios
+```
+> * the .env file is present in the project repo just to facilitate the instalation, it would be remove later.
 
-```sh
-bundle exec pod install
+---
+
+## Tools
+
+- React Native
+- Typescript
+- Axios
+- React Query
+- React Navigation
+- React Native Bootsplash
+- React Native MMKV
+- React Native SVG
+- React Native Stroke Text
+- React Native Safe Area Context
+
+---
+
+## Architecture
+
+The project was built with a modular architecture, where each folder inside screens/ represents an independent module of the application.
+Module pattern
+Each module follows the same writing pattern, separating responsibilities between two types of components:
+
+Stateful Components (screens/) — manage business logic and state
+Stateless Components (components/) — only render data received via props
+
+This separation makes components easy to test in isolation, since Stateless Components receive their data through dependency injection.
+
+---
+
+### Folder Structure
+
+This structure makes the project ready to scale, whether for adding new features or onboarding new team members, without compromising the organization of the codebase.
+
+```
+├── assets/
+│   ├── bootsplash/
+│   ├── fonts/
+│   ├── icons/
+│   ├── images/
+│   └── screenshots/
+├── src/
+│   ├── api/
+│   ├── components/
+│   │   ├── header/
+│   │   ├── input/
+│   │   └── tabs/
+│   ├── constants/
+│   ├── hooks/
+│   ├── models/
+│   ├── modules/
+│   │   ├── detail/
+│   │   ├── home/
+│   │   │   ├── components/
+│   │   │   └── screens/
+│   │   ├── search/
+│   │   │   ├── components/
+│   │   │   └── screens/
+│   │   └── watch-list/
+│   │       ├── components/
+│   │       │   └── __tests__/
+│   │       └── screens/
+│   ├── navigation/
+│   ├── services/
+│   ├── store/
+│   └── utils/
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
